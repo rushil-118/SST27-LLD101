@@ -95,7 +95,13 @@ public class Order {
 
     public String getId() { return id; }
     public String getCustomerEmail() { return customerEmail; }
-    public List<OrderLine> getLines() { return lines; } // leaks internal list
+    public List<OrderLine> getLines() {
+        List<OrderLine> deepcopy = new ArrayList<>();
+        for (OrderLine line : lines) {
+            deepcopy.add(new OrderLine(line.getSku(), line.getQuantity(), line.getUnitPriceCents()));
+        }
+        return deepcopy;
+    } // leaks internal list
     public Integer getDiscountPercent() { return discountPercent; }
     public boolean isExpedited() { return expedited; }
     public String getNotes() { return notes; }
