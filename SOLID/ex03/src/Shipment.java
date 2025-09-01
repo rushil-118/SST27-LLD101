@@ -1,4 +1,5 @@
-public class Shipment {
+public abstract class Shipment {
     String type; double weightKg;
     Shipment(String type, double w){ this.type=type; this.weightKg=w; }
+    public abstract double cost();
 }

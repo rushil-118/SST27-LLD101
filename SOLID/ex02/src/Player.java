@@ -1,12 +1,23 @@
 public class Player {
-    private Frame last;
+
+    FrameUI ui;
+    Decoder decoder;
+    Cache cache;
+
+    public Player (FrameUI ui, Decoder decoder, Cache cache) {
+        this.ui = ui;
+        this.decoder = decoder;
+        this.cache = cache;
+    }
+
+    
     void play(byte[] fileBytes){
         // decode
-        Frame f = new Frame(fileBytes); // pretend decoding
-        last = f;
+        Frame f = decoder.decode(fileBytes); // pretend decoding
+        
         // draw UI
-        System.out.println("\u25B6 Playing " + fileBytes.length + " bytes");
+        ui.draw(fileBytes.length);
         // cache
-        System.out.println("Cached last frame? " + (last!=null));
+        cache.cache(f);
     }
 }
