@@ -22,8 +22,20 @@ public class Client {
 
     // TODO: Wrap each legacy object with the right adapter and collect into one list
     List<Employee> all = new ArrayList<>();
+    for (EmployeeCSV employeeCSV : csvRows) {
+      Employee employee = new EmployeeCSVAdapter(employeeCSV);
+      all.add(employee);
+    }
 
+    for (EmployeeDB employeeDB : dbRows) {
+      Employee employee = new EmployeeDBAdapter(employeeDB);
+      all.add(employee);
+    }
 
+    for (EmployeeLDAP employeeLDAP : ldapRows) {
+      Employee employee = new EmployeeLDAPAdapter(employeeLDAP);
+      all.add(employee);
+    }
     EmployeePrinter.print(all);
   }
 }
