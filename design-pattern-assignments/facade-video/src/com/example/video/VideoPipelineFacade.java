@@ -8,12 +8,8 @@ public class VideoPipelineFacade {
     static Encoder enc = new Encoder();
     public static Path process(Path src, Path out, boolean gray, Double scale, Integer sharpenStrength){
         Frame[] frames = dec.decode(Path.of("in.mp4"));
-        frames = fe.grayscale(frames);
+        if(gray) frames = fe.grayscale(frames);
         frames = fe.scale(frames, scale);
-
-        // Path out1 = enc.encode(frames, Path.of("out.mp4"));
-        // System.out.println("Wrote " + out);
-
         return enc.encode(frames, out);
     }
 }
